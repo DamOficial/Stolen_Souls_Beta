@@ -12,8 +12,8 @@ public class PlayerController : MonoBehaviour
     public float gravityScale = -20f;
 
     [Header("Movement")]
-    public float walkSpeed = 10f;
-    public float runSpeed = 30f;
+    public float walkSpeed = 8f;
+    public float runSpeed = 16f;
 
     [Header("Rotation")]
     public float rotationSensitivity = 210f; //A mejorar
