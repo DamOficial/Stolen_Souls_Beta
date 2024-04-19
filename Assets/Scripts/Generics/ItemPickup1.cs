@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ItemPickup : MonoBehaviour
+public class ItemPickup1 : MonoBehaviour
 {
-    public ItemBase item;  // Referencia al ítem que se va a recoger
+    public ItemBase2 item2;  // Referencia al ítem que se va a recoger
     public PlayerController playerController;
 
 
@@ -12,15 +12,15 @@ public class ItemPickup : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            PickupItem();
+            PickupItem2();
         }
     }
 
-    void PickupItem()
+    void PickupItem2()
     {
         // Aquí puedes agregar el ítem al inventario del jugador
 
-        playerController.walkSpeed = item.walkSpeedModify;
+        playerController.jumpHeight = item2.jumpHeightModifier;
 
         // Finalmente, destruimos el objeto en el mundo
         Destroy(gameObject);
