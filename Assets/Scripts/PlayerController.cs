@@ -5,6 +5,8 @@ using UnityEngine;
 [RequireComponent(typeof(CharacterController))]
 public class PlayerController : MonoBehaviour
 {
+     private Inventory<ItemBase> inventory;
+
     [Header("References")]
     public Camera playerCamera;
 
@@ -31,10 +33,37 @@ public class PlayerController : MonoBehaviour
         characterController = GetComponent<CharacterController>();
     }
 
+      void Start()
+    {
+        inventory = new Inventory<ItemBase>();
+    }
+
     private void Update()
     {
         Look();
         Move();
+    }
+
+     void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag == "Item")
+        {
+            ItemBase item = collision.gameObject.GetComponent<ItemBase>(); // Convertir el objeto a tipo T
+            if (item != null)
+            {
+                inventory.AddItem(item);
+                Destroy(collision.gameObject); // Eliminar el objeto del juego
+            }
+        }
+    }
+
+      public void UseItem(string itemName)
+    {
+        ItemBase item = inventory.GetItem(itemName);
+        if (item != null)
+        {
+            item.Use(); // Usar el objeto
+        }
     }
 
     private void Move()
@@ -69,7 +98,7 @@ public class PlayerController : MonoBehaviour
         rotationInput.y = Input.GetAxis("Mouse Y") * rotationSensitivity * Time.deltaTime;
 
         cameraVerticalAngle = cameraVerticalAngle + rotationInput.y;
-        cameraVerticalAngle = Mathf.Clamp(cameraVerticalAngle, -70, 70);
+        cameraVerticalAngle = Mathf.Clamp(cameraVerticalAngle, -60, 60);
 
         transform.Rotate(Vector3.up * rotationInput.x);
         playerCamera.transform.localRotation = Quaternion.Euler(-cameraVerticalAngle, 0f, 0f);
