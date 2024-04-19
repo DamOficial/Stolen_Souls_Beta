@@ -6,7 +6,8 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
      private Inventory<ItemBase> inventory;
-
+    private Inventory2<ItemBase2> inventory2; 
+    
     [Header("References")]
     public Camera playerCamera;
 
@@ -22,48 +23,31 @@ public class PlayerController : MonoBehaviour
 
     [Header("Jump")] //A mejorar
     public float jumpHeight = 2.5f;
-
+    
     private float cameraVerticalAngle;
     Vector3 moveInput = Vector3.zero;
     Vector3 rotationInput = Vector3.zero;
     CharacterController characterController;
 
+    private Inventory<ItemBase> playerInventory;
+    private Inventory2<ItemBase2> playerInventory2;
+
     private void Awake()
     {
         characterController = GetComponent<CharacterController>();
+        playerInventory = GetComponent<Inventory<ItemBase>>();
+        playerInventory2 = GetComponent<Inventory2<ItemBase2>>();
     }
 
       void Start()
     {
-        inventory = new Inventory<ItemBase>();
+        
     }
 
     private void Update()
     {
         Look();
         Move();
-    }
-
-     void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.tag == "Item")
-        {
-            ItemBase item = collision.gameObject.GetComponent<ItemBase>(); // Convertir el objeto a tipo T
-            if (item != null)
-            {
-                inventory.AddItem(item);
-                Destroy(collision.gameObject); // Eliminar el objeto del juego
-            }
-        }
-    }
-
-      public void UseItem(string itemName)
-    {
-        ItemBase item = inventory.GetItem(itemName);
-        if (item != null)
-        {
-            item.Use(); // Usar el objeto
-        }
     }
 
     private void Move()

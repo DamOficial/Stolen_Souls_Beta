@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Inventory<T> : MonoBehaviour where T : ItemBase
+public class Inventory2<T> : MonoBehaviour where T : ItemBase2
 {
 
 
-    public static Inventory<T> instance;
+    public static Inventory2<T> instance;
 
     private void Awake()
     {
